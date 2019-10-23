@@ -14,7 +14,7 @@ public class DeckBuilder{
 
 	private Card[] cardArray;
 	private String[] suits = { "Clubs", "Spades", "Diamonds", "Hearts" };
-	private String[] ranks = { "Ace", "2","3","4","5","6","7","8","9","10", "jack", "queen", "king" };
+	private String[] ranks = { "Ace", "2","3","4","5","6","7","8","9","10", "Jack", "Queen", "King" };
 
 	private ImageIcon cardBackSmall;
 	private ImageIcon cardBackLarge;
