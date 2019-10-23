@@ -45,6 +45,11 @@ public class Card{
 	public eColor getColor(){
 		return ENUMCOLOR;
 	}
+	public eColor getOppColor(){
+		if(ENUMCOLOR == eColor.BLACK)
+			return eColor.RED;
+		return eColor.Black;
+	}
 	public String toString(){
 		return name;
 	}
