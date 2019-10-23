@@ -36,6 +36,13 @@ public class Card{
 	public Rank getRank(){
 		return ENUMRANK;
 	}
+	public Rank getNextRank(){
+		return Rank.nextRank(ENUMRANK);
+	}
+	public Rank getPrevRank(){
+		return Rank.prevRank(ENUMRANK);
+
+	}
 	public Suit getSuit(){
 		return ENUMSUIT;
 	}
@@ -109,7 +116,72 @@ public class Card{
 					return null;
 			}
 		}
-	}
+		public static Rank nextRank(Rank r){
+			switch(r){
+				case ACE :
+					return TWO;
+				case TWO :
+					return THREE;
+				case THREE :
+					return FOUR;
+				case FOUR :
+					return FIVE;
+				case FIVE :
+					return SIX;
+				case SIX :
+					return SEVEN;
+				case SEVEN :
+					return EIGHT;
+				case EIGHT :
+					return NINE;
+				case NINE:
+					return TEN;
+				case TEN:
+					return JACK;
+				case JACK :
+					return QUEEN;
+				case QUEEN :
+					return KING;
+				case KING :
+					return ACE;
+				default :
+					return null;
+				}
+			}
+			public static Rank prevRank(Rank r){
+				switch(r){
+					case ACE :
+						return KING;
+					case TWO :
+						return ACE;
+					case THREE :
+						return TWO;
+					case FOUR :
+						return THREE;
+					case FIVE :
+						return FOUR;
+					case SIX :
+						return FIVE;
+					case SEVEN :
+						return SIX;
+					case EIGHT :
+						return SEVEN;
+					case NINE:
+						return EIGHT;
+					case TEN:
+						return NINE;
+					case JACK :
+						return TEN;
+					case QUEEN :
+						return JACK;
+					case KING :
+						return QUEEN;
+					default :
+						return null;
+					}
+				}
+		}
+
 
 	public enum Suit{
 		CLUBS,
