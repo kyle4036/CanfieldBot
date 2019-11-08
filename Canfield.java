@@ -280,34 +280,23 @@ public class Canfield extends JFrame{
 	}
 
 	public boolean checkPiles(){
-		ListIterator<Pile> iterator = allPiles.listIterator();
-		Pile currentPile;
-		boolean hasChanged = false;
-		int i = 0;
-		int counter;
-
-		while (i < 2){
-			counter = 0;
-			while (iterator.hasNext()){
-				this.slow();
-
-				currentPile = iterator.next();
-
-				if (this.canCardSwap(currentPile)){
-					//this.swapCard(currentPile); //done in canCardSwap Method
-					hasChanged = true;
-					i = -1;
-				}
-
-				this.adjustTableau();
-
-				System.out.println("#" + counter++ + " checkPiles() listIterator");
-			}
-
-			i++;
+		boolean noCardsMoved = true;
+		while(noCardsMoved){
+			noCardsMoved = checkCardTableau(stock) ||
+										   checkCardFoundation(tableau[0]) ||
+											 checkCardFoundation(tableau[1]) ||
+											 checkCardFoundation(tableau[2]) ||
+											 checkCardFoundation(tableau[3]) ||
+										 checkCardTableau(faceUpHand) ||
+										 checkTableauMove();
 		}
 
-		return hasChanged;
+	}
+	public boolean checkCardTableau(Pile p){
+		return false;
+	}
+	public boolean checkCardFoundation(Pile p){
+		return false;
 	}
 
 	public boolean canCardSwap(Pile p){
@@ -318,9 +307,9 @@ public class Canfield extends JFrame{
 		s.addCard(p.popCard());
 	}
 
-	public void adjustTableau(){
+	public boolean checkTableauMove(){
 		//used to move a Tableau pile onto another tableau if needed
-
+		return false;
 	}
 
 	public void printAllPiles(){
