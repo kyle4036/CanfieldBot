@@ -298,13 +298,25 @@ public class Canfield extends JFrame{
 		return (i>=1)?true:false; //checks if it moved cards at least one time
 	}
 	public boolean checkCardTableau(Pile p){
-		return false;
+		boolean cardSwapped = false;
+
+		for(int i = 0;i <= 3;i++){
+			Card c = p.peekCard();
+
+			if(this.canCardSwap(c,tableau[i])){
+				this.swapCard(p,tableau[i]);
+				cardSwapped = true;
+			}
+
+		}
+
+		return cardSwapped || checkCardFoundation(p);
 	}
 	public boolean checkCardFoundation(Pile p){
 		return false;
 	}
 
-	public boolean canCardSwap(Pile p){
+	public boolean canCardSwap(Card c,Pile p){
 		return false;
 	}
 	public void swapCard(Pile p, Pile s){
