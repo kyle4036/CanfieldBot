@@ -312,8 +312,21 @@ public class Canfield extends JFrame{
 
 		return cardSwapped || checkCardFoundation(p);
 	}
+
 	public boolean checkCardFoundation(Pile p){
-		return false;
+		//pretty much the same thing as checkCardTableau() except on the foundations
+		boolean cardMoved = false;
+
+		for(i = 0;i <= 3;i++){
+			Card c = p.peekCard();
+
+			if(this.canCardSwap(c, foundation[i])){
+				this.swapCard(p, foundation[i]);
+				cardMoved = true;
+			}
+		}
+
+		return cardMoved;
 	}
 
 	public boolean canCardSwap(Card c,Pile p){
