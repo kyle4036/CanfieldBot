@@ -279,9 +279,11 @@ public class Canfield extends JFrame{
 			faceDownHand.addCard(faceUpHand.popCard());
 	}
 
-	public boolean checkPiles(){
-		boolean noCardsMoved = true;
-		while(noCardsMoved){
+	public boolean checkPiles(){//need another variable to make sure that if the
+		boolean noCardsMoved;
+		int i=-1;
+
+		do{
 			noCardsMoved = checkCardTableau(stock) ||
 										   checkCardFoundation(tableau[0]) ||
 											 checkCardFoundation(tableau[1]) ||
@@ -289,8 +291,11 @@ public class Canfield extends JFrame{
 											 checkCardFoundation(tableau[3]) ||
 										 checkCardTableau(faceUpHand) ||
 										 checkTableauMove();
-		}
+			i++;
+		}while(noCardsMoved);
+		System.out.println("checkPiles() # of Cycles : " + i);
 
+		return (i>=1)?true:false; //checks if it moved cards at least one time
 	}
 	public boolean checkCardTableau(Pile p){
 		return false;
