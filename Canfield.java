@@ -279,7 +279,7 @@ public class Canfield extends JFrame{
 			faceDownHand.addCard(faceUpHand.popCard());
 	}
 
-	public boolean checkPiles(){//need another variable to make sure that if the
+	public boolean checkPiles(){
 		boolean noCardsMoved;
 		int i=-1;
 
