@@ -177,6 +177,8 @@ public class Canfield extends JFrame{
 		private ImageIcon backFace;
 		private ImageIcon noCard;
 
+		private FollowingCardIntr FC;
+
 		public Pile(boolean faceUp){
 			this.faceUp = faceUp;
 			cardStack = new Stack<Card>();
@@ -190,6 +192,8 @@ public class Canfield extends JFrame{
 			super.setIcon(cardFace);
 			super.setText(null);
 			super.setVisible(true);
+
+			FC = () -> new Card();
 		}
 
 		public void addCard(Card c){
@@ -224,6 +228,11 @@ public class Canfield extends JFrame{
 				super.setIcon(cardStack.peek().getImageSmall());
 			else
 				super.setIcon(backFace);
+		}
+
+		@FunctionalInterface
+		interface FollowingCardIntr{
+			public Card[] nextCard();
 		}
 
 	}
@@ -330,6 +339,7 @@ public class Canfield extends JFrame{
 	}
 
 	public boolean canCardSwap(Card c,Pile p){
+
 		return false;
 	}
 	public void swapCard(Pile p, Pile s){

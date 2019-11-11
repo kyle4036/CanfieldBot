@@ -61,4 +61,8 @@ private class Pile extends JLabel{
       super.setIcon(backFace);
   }
 
+  interface FollowingCardIntr{
+    public Card[] nextCard();
+  }
+
 }
