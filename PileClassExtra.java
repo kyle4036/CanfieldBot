@@ -65,6 +65,10 @@ private class Pile extends JLabel{
     this.updateVisual();
     return cardStack.peek();
   }
+  public Card firstCard(){
+    this.updateVisual();
+    return cardstack.firstElement();
+  }
 
   public boolean empty(){
     return cardStack.empty();

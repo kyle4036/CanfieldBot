@@ -69,10 +69,34 @@ public class Canfield extends JFrame{
 		boolean up = true;
 		boolean down = false;
 
+		//anonymouse class to act as an interface function
+		FollowingCardIntr FCfoundation = new FollowingCardIntr(){
+			public Card[] nextCard(Pile p){
+				//following card needs to be going upwards and in the same suit
+				Card[] nextCards;
+
+				if(p.empty()){
+				  Card tempCard = foundation[0].firstCard();
+				  Card.Rank firstR = tempCard.getRank();
+				  nextCards = new Card[]{
+				    new Card(firstR, Card.Suit.CLUBS),
+				    new Card(firstR, Card.Suit.SPADES),
+				    new Card(firstR, Card.Suit.DIAMANDS),
+				    new Card(firstR, Card.Suit.HEARTS)};
+					return nextCards;
+				}
+
+				Card tempCard = p.peekCard();
+				Card.Rank nextR = tempCard.getNextRank();
+				nextCards = new Card[]{ new Card(nextR, tempCard.getSuit())};
+				return nextCards;
+			}
+		};
+
+		//anonymouse class to act as an interface function
 		FollowingCardIntr FCtableau = new FollowingCardIntr(){
 			public Card[] nextCard(Pile p){
 				//Following cards need to be going downwards and be opposing colors
-				//p is the current pile
 				Card[] nextCards;
 
 				Card tempCard = p.peekCard();
@@ -95,7 +119,7 @@ public class Canfield extends JFrame{
 		foundation = new Pile[4];
 		tableau = new Pile[4];
 		for (int i = 0;i < 4;i++){
-			foundation[i] = new Pile(up);
+			foundation[i] = new Pile(up, FCfoundation);
 			tableau[i] = new Pile(up, FCtableau);
 		}
 	}
@@ -249,6 +273,11 @@ public class Canfield extends JFrame{
 			return cardStack.peek();
 		}
 
+		public Card firstCard(){
+			this.updateVisual();
+			return cardStack.firstElement();
+		}
+
 		public boolean empty(){
 			return cardStack.empty();
 		}
@@ -392,6 +421,9 @@ public class Canfield extends JFrame{
 	}
 
 	public boolean canCardSwap(Card c,Pile p){
+		if(p.empty())
+			return false;//so we don't throw any exceptions
+
 		Card[] playableCards;
 		playableCards = p.followingCard();
 
