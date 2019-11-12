@@ -69,6 +69,25 @@ public class Canfield extends JFrame{
 		boolean up = true;
 		boolean down = false;
 
+		FollowingCardIntr FCtableau = new FollowingCardIntr(){
+			public Card[] nextCard(Pile p){
+				//Following cards need to be going downwards and be opposing colors
+				//p is the current pile
+				Card[] nextCards;
+
+				Card tempCard = p.peekCard();
+				Card.Rank prevR = tempCard.getPrevRank();
+				Card.eColor opColor = tempCard.getOppColor();
+				Card.Suit[] nextSuits = Card.Suit.fromColor(opColor);
+
+				nextCards = new Card[]{
+				  new Card(prevR,nextSuits[0]),
+				  new Card(prevR,nextSuits[1])};
+
+				return nextCards;
+			}
+		};
+
 		stock = new Pile(up);
 		faceDownHand = new Pile(down);
 		faceUpHand = new Pile(up);
@@ -77,7 +96,7 @@ public class Canfield extends JFrame{
 		tableau = new Pile[4];
 		for (int i = 0;i < 4;i++){
 			foundation[i] = new Pile(up);
-			tableau[i] = new Pile(up);
+			tableau[i] = new Pile(up, FCtableau);
 		}
 	}
 	private void setUpPiles(){

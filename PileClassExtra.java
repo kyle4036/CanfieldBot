@@ -4,7 +4,7 @@
 //own file so that I can easily look at it
 
 interface FollowingCardIntr{
-  public Card[] nextCard();
+  public Card[] nextCard(Pile p);
 }
 private class Pile extends JLabel{
   //todo: make a AddPile method for interchanging tableaus
@@ -85,7 +85,7 @@ private class Pile extends JLabel{
   }
 
   public Card[] followingCard(){
-    return followingCardFunc.nextCard();
+    return followingCardFunc.nextCard(this);
   }
 
 }
