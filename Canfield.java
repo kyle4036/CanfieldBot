@@ -167,7 +167,9 @@ public class Canfield extends JFrame{
 		super.setVisible(true);
 	}
 
-
+	interface FollowingCardIntr{
+		public Card[] nextCard();
+	}
 	private class Pile extends JLabel{
 		//todo: make a AddPile method for interchanging tableaus
 
@@ -177,7 +179,7 @@ public class Canfield extends JFrame{
 		private ImageIcon backFace;
 		private ImageIcon noCard;
 
-		private FollowingCardIntr FC;
+		private FollowingCardIntr followingCardFunc;
 
 		public Pile(boolean faceUp){
 			this.faceUp = faceUp;
@@ -192,8 +194,23 @@ public class Canfield extends JFrame{
 			super.setIcon(cardFace);
 			super.setText(null);
 			super.setVisible(true);
+		}
 
-			FC = () -> new Card();
+		public Pile(boolean faceUp, FollowingCardIntr funct){
+			this.faceUp = faceUp;
+			cardStack = new Stack<Card>();
+
+			this.setText(null);
+
+			backFace = new ImageIcon("Poker_Small_JPG/Backface_Blue.jpg");//start off the game with all cards face down so it can easily be formatted
+			noCard = new ImageIcon("invisible_Card.jpg");
+			cardFace = noCard;
+
+			super.setIcon(cardFace);
+			super.setText(null);
+			super.setVisible(true);
+
+			this.followingCardFunc = funct;
 		}
 
 		public void addCard(Card c){
@@ -230,9 +247,8 @@ public class Canfield extends JFrame{
 				super.setIcon(backFace);
 		}
 
-		@FunctionalInterface
-		interface FollowingCardIntr{
-			public Card[] nextCard();
+		public Card[] followingCard(){
+			return followingCardFunc.nextCard();
 		}
 
 	}
