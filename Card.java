@@ -33,6 +33,13 @@ public class Card{
 		ENUMCOLOR = eColor.fromSuit(ENUMSUIT);
 	}
 
+	//overloaded constructor
+	public Card(Rank enumrank, Suit enumsuit){
+		ENUMRANK = enumrank;
+		ENUMSUIT = enumsuit;
+		ENUMCOLOR = eColor.fromSuit(ENUMSUIT);
+	}
+
 	public Rank getRank(){
 		return ENUMRANK;
 	}
@@ -202,6 +209,12 @@ public class Card{
 				default :
 					return null;
 			}
+		}
+		public static Suit[] fromColor(eColor c){
+			if(c == eColor.RED)
+				return new Suit[]{DIAMANDS, HEARTS};
+			else
+				return new Suit[]{CLUBS,SPADES};
 		}
 	}
 

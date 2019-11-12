@@ -3,6 +3,9 @@
 //it is actually a part of the canfield class, but I broke its
 //own file so that I can easily look at it
 
+interface FollowingCardIntr{
+  public Card[] nextCard();
+}
 private class Pile extends JLabel{
   //todo: make a AddPile method for interchanging tableaus
 
@@ -11,6 +14,8 @@ private class Pile extends JLabel{
   private boolean faceUp;
   private ImageIcon backFace;
   private ImageIcon noCard;
+
+  private FollowingCardIntr followingCardFunc;
 
   public Pile(boolean faceUp){
     this.faceUp = faceUp;
@@ -25,6 +30,24 @@ private class Pile extends JLabel{
     super.setIcon(cardFace);
     super.setText(null);
     super.setVisible(true);
+  }
+
+  //overloaded constructor for the tableau and foundation piles
+  public Pile(boolean faceUp, FollowingCardIntr funct){
+    this.faceUp = faceUp;
+    cardStack = new Stack<Card>();
+
+    this.setText(null);
+
+    backFace = new ImageIcon("Poker_Small_JPG/Backface_Blue.jpg");//start off the game with all cards face down so it can easily be formatted
+    noCard = new ImageIcon("invisible_Card.jpg");
+    cardFace = noCard;
+
+    super.setIcon(cardFace);
+    super.setText(null);
+    super.setVisible(true);
+
+    this.followingCardFunc = funct;
   }
 
   public void addCard(Card c){
@@ -61,8 +84,8 @@ private class Pile extends JLabel{
       super.setIcon(backFace);
   }
 
-  interface FollowingCardIntr{
-    public Card[] nextCard();
+  public Card[] followingCard(){
+    return followingCardFunc.nextCard();
   }
 
 }

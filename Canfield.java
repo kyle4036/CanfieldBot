@@ -168,7 +168,7 @@ public class Canfield extends JFrame{
 	}
 
 	interface FollowingCardIntr{
-		public Card[] nextCard();
+		public Card[] nextCard(Pile p);
 	}
 	private class Pile extends JLabel{
 		//todo: make a AddPile method for interchanging tableaus
@@ -196,6 +196,7 @@ public class Canfield extends JFrame{
 			super.setVisible(true);
 		}
 
+		//overloaded constructor for the tableau and foundation piles
 		public Pile(boolean faceUp, FollowingCardIntr funct){
 			this.faceUp = faceUp;
 			cardStack = new Stack<Card>();
@@ -248,7 +249,7 @@ public class Canfield extends JFrame{
 		}
 
 		public Card[] followingCard(){
-			return followingCardFunc.nextCard();
+			return followingCardFunc.nextCard(this);
 		}
 
 	}
