@@ -359,10 +359,7 @@ public class Canfield extends JFrame{
 
 		do{
 			noCardsMoved = checkCardTableau(stock) ||
-										   checkCardFoundation(tableau[0]) ||
-											 checkCardFoundation(tableau[1]) ||
-											 checkCardFoundation(tableau[2]) ||
-											 checkCardFoundation(tableau[3]) ||
+										 tableauToFoundation() ||
 										 checkCardTableau(faceUpHand) ||
 										 checkTableauMove();
 			i++;
@@ -420,9 +417,24 @@ public class Canfield extends JFrame{
 		return cardMoved;
 	}
 
+	public boolean tableauToFoundation(){
+		boolean cardMoved = false;
+		for(int i = 0;i <= 3;i++){
+			if(!tableau[i].empty()){
+				this.checkCardFoundation(tableau[i]);
+				cardMoved = true;
+			}
+		}
+		return cardMoved;
+	}
+
 	public boolean canCardSwap(Card c,Pile p){
+		/*
 		if(p.empty())
 			return false;//so we don't throw any exceptions
+		*/
+		//breaks things
+		//using tableauToFoundation to fix things
 
 		Card[] playableCards;
 		playableCards = p.followingCard();
