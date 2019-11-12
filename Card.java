@@ -67,6 +67,11 @@ public class Card{
 	public String toString(){
 		return name;
 	}
+	public boolean equals(Card c){
+		if(this.ENUMRANK == c.getRank() && this.ENUMSUIT == c.getSuit())
+			 	return true;
+		return false;
+	}
 
 	public ImageIcon getImageBig(){
 		return cardIcon.getLarge();

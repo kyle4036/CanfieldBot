@@ -373,7 +373,14 @@ public class Canfield extends JFrame{
 	}
 
 	public boolean canCardSwap(Card c,Pile p){
+		Card[] playableCards;
+		playableCards = p.followingCard();
 
+		for(Card test:playableCards){
+			if(test.equals(c)){
+				return true;
+			}
+		}
 		return false;
 	}
 	public void swapCard(Pile p, Pile s){
