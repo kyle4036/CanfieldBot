@@ -328,20 +328,29 @@ public class Canfield extends JFrame{
 
 		for(int i = 0;i <= 3;i++){
 			//need to make sure that if a tableau is currently empty to
-			// add a card from the stock
-			if(tableau[i].empty()){
-				this.swapCard(stock,tableau[i])
+			// add a card from the stock or the deck
+			if(tableau[i].empty() && !stock.empty()){
+				this.swapCard(stock,tableau[i]);
+				cardSwapped = true;
+			}
+			else if(tableau[i].empty() && stock.empty() && !faceUpHand.empty()){
+				this.swapCard(faceUpHand, tableau[i]);
+				cardSwapped = true;
+			}
+			else if(tableau[i].empty() && stock.empty() && faceUpHand.empty()){
+				this.flip3Cards();
+				this.swapCard(faceUpHand, tableau[i]);
+				cardSwapped = true;
 			}
 		}
 
 		for(int i = 0;i <= 3;i++){
+			//checks if a card can be added to a tableau and does so
 			Card c = p.peekCard();
-
 			if(this.canCardSwap(c,tableau[i])){
 				this.swapCard(p,tableau[i]);
 				cardSwapped = true;
 			}
-
 		}
 
 		return cardSwapped || checkCardFoundation(p);
