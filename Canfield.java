@@ -327,6 +327,14 @@ public class Canfield extends JFrame{
 		boolean cardSwapped = false;
 
 		for(int i = 0;i <= 3;i++){
+			//need to make sure that if a tableau is currently empty to
+			// add a card from the stock
+			if(tableau[i].empty()){
+				this.swapCard(stock,tableau[i])
+			}
+		}
+
+		for(int i = 0;i <= 3;i++){
 			Card c = p.peekCard();
 
 			if(this.canCardSwap(c,tableau[i])){
