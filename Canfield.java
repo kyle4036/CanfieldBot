@@ -320,6 +320,8 @@ public class Canfield extends JFrame{
 	}
 
 	public void runGame(){
+		System.out.println("enter:runGame()");
+
 		Card topCard;
 
 		allPiles = new LinkedList<Pile>();
@@ -353,6 +355,7 @@ public class Canfield extends JFrame{
 
 			this.slow();
 		}
+		System.out.println("exit:runGame()");
 	}
 
 	public Card flip3Cards(){
@@ -372,6 +375,7 @@ public class Canfield extends JFrame{
 	}
 
 	public boolean checkPiles(){
+		System.out.println("enter:checkPiles()");
 		boolean noCardsMoved;
 		int i=-1;
 
@@ -383,7 +387,7 @@ public class Canfield extends JFrame{
 			i++;
 		}while(noCardsMoved);
 		System.out.println("checkPiles() # of Cycles : " + i);
-
+		System.out.println("exit:checkPiles()");
 		return (i>=1)?true:false; //checks if it moved cards at least one time
 	}
 	public boolean checkCardTableau(Pile p){
@@ -420,6 +424,8 @@ public class Canfield extends JFrame{
 				System.out.println("checkCardTableau(Pile p):card " + c + "swapped with tableau #" + i);
 			}
 		}
+		System.out.println("exit:checkCardTableau()");
+
 
 		return cardSwapped || checkCardFoundation(p);
 	}
