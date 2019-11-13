@@ -39,7 +39,7 @@ public class Card{
 		ENUMSUIT = enumsuit;
 		ENUMCOLOR = eColor.fromSuit(ENUMSUIT);
 	}
-	public Card(Rank enumrank, Suit enumsuit,eColor enumcolor){
+	public Card(Rank enumrank, Suit enumsuit,eColor enumcolor,Object o){
 		ENUMRANK = enumrank;
 		ENUMSUIT = enumsuit;
 		ENUMCOLOR = enumcolor;

@@ -279,7 +279,7 @@ public class Canfield extends JFrame{
 			}catch(EmptyStackException e){
 				System.out.println("EmptyStackException in Piles.peekCard() method.\n"+
 													 "Likely due to a tableau running out of cards.");
-				return new Card(null,null);
+				return new Card(null,null,null,null);
 			}
 		}
 
