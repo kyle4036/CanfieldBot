@@ -112,15 +112,15 @@ public class Canfield extends JFrame{
 			}
 		};
 
-		stock = new Pile(up);
-		faceDownHand = new Pile(down);
-		faceUpHand = new Pile(up);
+		stock = new Pile(up,"stock");
+		faceDownHand = new Pile(down,"faceDownHand");
+		faceUpHand = new Pile(up,"faceUpHand");
 
 		foundation = new Pile[4];
 		tableau = new Pile[4];
 		for (int i = 0;i < 4;i++){
-			foundation[i] = new Pile(up, FCfoundation);
-			tableau[i] = new Pile(up, FCtableau);
+			foundation[i] = new Pile(up,"foundation"+i, FCfoundation);
+			tableau[i] = new Pile(up,"tableau"+i, FCtableau);
 		}
 	}
 	private void setUpPiles(){
@@ -216,6 +216,8 @@ public class Canfield extends JFrame{
 	private class Pile extends JLabel{
 		//todo: make a AddPile method for interchanging tableaus
 
+		private String name;
+
 		private Stack<Card> cardStack;
 		private ImageIcon cardFace;
 		private boolean faceUp;
@@ -224,7 +226,8 @@ public class Canfield extends JFrame{
 
 		private FollowingCardIntr followingCardFunc;
 
-		public Pile(boolean faceUp){
+		public Pile(boolean faceUp, String name){
+			this.name = name;
 			this.faceUp = faceUp;
 			cardStack = new Stack<Card>();
 
@@ -240,7 +243,8 @@ public class Canfield extends JFrame{
 		}
 
 		//overloaded constructor for the tableau and foundation piles
-		public Pile(boolean faceUp, FollowingCardIntr funct){
+		public Pile(boolean faceUp,String name, FollowingCardIntr funct){
+			this.name = name;
 			this.faceUp = faceUp;
 			cardStack = new Stack<Card>();
 
@@ -300,6 +304,14 @@ public class Canfield extends JFrame{
 			return followingCardFunc.nextCard(this);
 		}
 
+		public String toString(){
+			String output = name + "\n";
+			for(Card c:cardStack){
+				output = output + "\n" + c;
+			}
+			return output;
+		}
+
 	}
 
 	public void runGame(){
@@ -310,6 +322,7 @@ public class Canfield extends JFrame{
 		allPiles.add(faceUpHand);
 		//allPiles.addAll(Arrays.asList(foundation));//shouldn't move foundation cards
 		allPiles.addAll(Arrays.asList(tableau));
+		allPiles.addAll(Arrays.asList(foundation));
 
 		//this.printAllPiles();//debugging
 
@@ -369,6 +382,7 @@ public class Canfield extends JFrame{
 		return (i>=1)?true:false; //checks if it moved cards at least one time
 	}
 	public boolean checkCardTableau(Pile p){
+		//System.out.println("enter:checkCardTableau()");
 		boolean cardSwapped = false;
 
 		for(int i = 0;i <= 3;i++){
@@ -377,15 +391,18 @@ public class Canfield extends JFrame{
 			if(tableau[i].empty() && !stock.empty()){
 				this.swapCard(stock,tableau[i]);
 				cardSwapped = true;
+				//System.out.println("checkCardTableau(Pile p):tableau empty");
 			}
 			else if(tableau[i].empty() && stock.empty() && !faceUpHand.empty()){
 				this.swapCard(faceUpHand, tableau[i]);
 				cardSwapped = true;
+				//System.out.println("checkCardTableau(Pile p):tableau and stock empty");
 			}
 			else if(tableau[i].empty() && stock.empty() && faceUpHand.empty()){
 				this.flip3Cards();
 				this.swapCard(faceUpHand, tableau[i]);
 				cardSwapped = true;
+				//System.out.println("checkCardTableau(Pile p):tableau and stock and uphand deck empty");
 			}
 		}
 
@@ -395,6 +412,7 @@ public class Canfield extends JFrame{
 			if(this.canCardSwap(c,tableau[i])){
 				this.swapCard(p,tableau[i]);
 				cardSwapped = true;
+				System.out.println("checkCardTableau(Pile p):card " + c + "swapped with tableau #" + i);
 			}
 		}
 
@@ -403,6 +421,7 @@ public class Canfield extends JFrame{
 
 	public boolean checkCardFoundation(Pile p){
 		//pretty much the same thing as checkCardTableau() except on the foundations
+		//System.out.println("enter:checkCardFoundation(Pile p)");
 		boolean cardMoved = false;
 
 		for(int i = 0;i <= 3;i++){
@@ -411,9 +430,10 @@ public class Canfield extends JFrame{
 			if(this.canCardSwap(c, foundation[i])){
 				this.swapCard(p, foundation[i]);
 				cardMoved = true;
+				System.out.println("checkCardFoundation(Pile p):card " + c + "swapped with foundation #" + i);
 			}
 		}
-
+			//System.out.println("exit:checkCardFoundation(Pile p)");
 		return cardMoved;
 	}
 
@@ -421,8 +441,7 @@ public class Canfield extends JFrame{
 		boolean cardMoved = false;
 		for(int i = 0;i <= 3;i++){
 			if(!tableau[i].empty()){
-				this.checkCardFoundation(tableau[i]);
-				cardMoved = true;
+				cardMoved = this.checkCardFoundation(tableau[i]);
 			}
 		}
 		return cardMoved;
