@@ -274,7 +274,13 @@ public class Canfield extends JFrame{
 
 		public Card peekCard(){
 			this.updateVisual();
-			return cardStack.peek();
+			try{
+				return cardStack.peek();
+			}catch(EmptyStackException e){
+				System.out.println("EmptyStackException in Piles.peekCard() method.\n"+
+													 "Likely due to a tableau running out of cards.");
+				return new Card(null,null);
+			}
 		}
 
 		public Card firstCard(){
@@ -305,13 +311,12 @@ public class Canfield extends JFrame{
 		}
 
 		public String toString(){
-			String output = name + "\n";
+			String output = name + ":";
 			for(Card c:cardStack){
 				output = output + "\n" + c;
 			}
-			return output;
+			return output+"\n";
 		}
-
 	}
 
 	public void runGame(){
@@ -382,7 +387,7 @@ public class Canfield extends JFrame{
 		return (i>=1)?true:false; //checks if it moved cards at least one time
 	}
 	public boolean checkCardTableau(Pile p){
-		//System.out.println("enter:checkCardTableau()");
+		System.out.println("enter:checkCardTableau()");
 		boolean cardSwapped = false;
 
 		for(int i = 0;i <= 3;i++){
@@ -402,7 +407,7 @@ public class Canfield extends JFrame{
 				this.flip3Cards();
 				this.swapCard(faceUpHand, tableau[i]);
 				cardSwapped = true;
-				//System.out.println("checkCardTableau(Pile p):tableau and stock and uphand deck empty");
+				System.out.println("checkCardTableau(Pile p):tableau and stock and uphand deck empty");
 			}
 		}
 
@@ -430,7 +435,7 @@ public class Canfield extends JFrame{
 			if(this.canCardSwap(c, foundation[i])){
 				this.swapCard(p, foundation[i]);
 				cardMoved = true;
-				System.out.println("checkCardFoundation(Pile p):card " + c + "swapped with foundation #" + i);
+				System.out.println("checkCardFoundation(Pile p):card " + c + " swapped with foundation #" + i);
 			}
 		}
 			//System.out.println("exit:checkCardFoundation(Pile p)");
@@ -438,9 +443,12 @@ public class Canfield extends JFrame{
 	}
 
 	public boolean tableauToFoundation(){
+		System.out.println("enter:tableauToFoundation()");
 		boolean cardMoved = false;
 		for(int i = 0;i <= 3;i++){
 			if(!tableau[i].empty()){
+				System.out.println("tableau #" + i + " is not empty");
+				System.out.println(tableau[i]);
 				cardMoved = this.checkCardFoundation(tableau[i]);
 			}
 		}

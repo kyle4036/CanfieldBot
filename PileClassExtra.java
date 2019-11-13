@@ -9,6 +9,8 @@ interface FollowingCardIntr{
 private class Pile extends JLabel{
   //todo: make a AddPile method for interchanging tableaus
 
+  private String name;
+
   private Stack<Card> cardStack;
   private ImageIcon cardFace;
   private boolean faceUp;
@@ -17,7 +19,8 @@ private class Pile extends JLabel{
 
   private FollowingCardIntr followingCardFunc;
 
-  public Pile(boolean faceUp){
+  public Pile(boolean faceUp, String name){
+    this.name = name;
     this.faceUp = faceUp;
     cardStack = new Stack<Card>();
 
@@ -33,7 +36,8 @@ private class Pile extends JLabel{
   }
 
   //overloaded constructor for the tableau and foundation piles
-  public Pile(boolean faceUp, FollowingCardIntr funct){
+  public Pile(boolean faceUp,String name, FollowingCardIntr funct){
+    this.name = name;
     this.faceUp = faceUp;
     cardStack = new Stack<Card>();
 
@@ -65,9 +69,10 @@ private class Pile extends JLabel{
     this.updateVisual();
     return cardStack.peek();
   }
+
   public Card firstCard(){
     this.updateVisual();
-    return cardstack.firstElement();
+    return cardStack.firstElement();
   }
 
   public boolean empty(){
@@ -92,4 +97,11 @@ private class Pile extends JLabel{
     return followingCardFunc.nextCard(this);
   }
 
+  public String toString(){
+    String output = name + ":";
+    for(Card c:cardStack){
+      output = output + "\n" + c;
+    }
+    return output+"\n";
+  }
 }
