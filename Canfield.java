@@ -11,6 +11,8 @@ version 1.2 - Starting this project independently away from the Compsci class I 
 	canCardSwap will run the swapCard method to swap the cards immediately after it finds that it can swap the card with another spot
 */
 
+//xx
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
